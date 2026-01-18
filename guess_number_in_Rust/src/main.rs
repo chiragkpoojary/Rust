@@ -1,5 +1,5 @@
 use rand::Rng;
-
+use std::cmp::Ordering;
 use std::io;
 fn main() {
 
@@ -12,16 +12,16 @@ fn main() {
             let mut guess=String::new();
         io::stdin().read_line(&mut guess).expect("error");
   
-        let mut guess:i32=guess.trim().parse().expect("jjj");
-if x==guess{
-println!("you win number is {x}");
-break;
-}else if(x<guess){
-println!("go down");
-}
+        let  guess:i32=match guess.trim().parse() {
+            Ok(num)=>num,
+            Err(_)=>continue,
+        };
 
-else{
-println!("go up");
+
+match x.cmp(&guess){
+    Ordering::Less=>println!("go dowm"),
+    Ordering::Greater=>println!("go up"),
+    Ordering::Equal=>{println!("win!!!");break;}
 }
 
     }
